@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pdp_ecosystem/src/common/services/api_service.dart';
+import 'package:pdp_ecosystem/src/feature/sign_in/repository/sign_in_repository.dart';
+import 'package:pdp_ecosystem/src/feature/sign_in/sign_in_screen.dart';
 
 import '../../../common/constants/app_colors.dart';
 import '../../../common/constants/app_icons.dart';
+import '../../sign_in/bloc/sign_in_bloc.dart';
 import '../bloc/output_bloc.dart';
 
 class OutputSearch extends StatefulWidget {
@@ -20,7 +24,6 @@ class OutputSearch extends StatefulWidget {
 class _OutputSearchState extends State<OutputSearch> {
   bool showIcon = true;
 
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -33,7 +36,7 @@ class _OutputSearchState extends State<OutputSearch> {
             const BackButton(color: AppColors.blackColor),
             SizedBox(
               height: 45,
-              width: width * .8,
+              width: width * .7,
               child: TextField(
                 onChanged: (value) {
                   context.read<OutputBloc>().add(
@@ -88,6 +91,27 @@ class _OutputSearchState extends State<OutputSearch> {
                     ),
                   ),
                 ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => SignInBloc(
+                        SignInRepositoryImp(
+                          APIService(),
+                        ),
+                      ),
+                      child: const SignIn(),
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: AppColors.redColor,
               ),
             ),
             const SizedBox(width: 15),

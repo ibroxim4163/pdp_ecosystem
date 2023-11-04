@@ -61,9 +61,13 @@ class _SignInState extends State<SignIn> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => PageBuilder(
-                isSuperUser: state.isSuperUser,
-              ),
+              builder: (context) {
+                return state.isSuperUser
+                    ? PageBuilder(
+                        isSuperUser: state.isSuperUser,
+                      )
+                    : const NotUserPageBuilder();
+              },
             ),
           );
 

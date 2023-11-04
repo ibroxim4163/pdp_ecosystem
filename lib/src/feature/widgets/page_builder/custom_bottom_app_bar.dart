@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import '../../../common/constants/app_colors.dart';
 import 'bottom_item.dart';
 
-class CustomBottomAppBar extends StatefulWidget {
+class CustomSuperUserBottom extends StatefulWidget {
   final Function(int value) onPressed;
   final bool isSupersUser;
-  const CustomBottomAppBar({
+  const CustomSuperUserBottom({
     required this.isSupersUser,
     required this.onPressed,
     super.key,
   });
 
   @override
-  State<CustomBottomAppBar> createState() => _CustomBottomAppBarState();
+  State<CustomSuperUserBottom> createState() => _CustomSuperUserBottomState();
 }
 
-class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
+class _CustomSuperUserBottomState extends State<CustomSuperUserBottom> {
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-         BottomItem(
+            BottomItem(
               onTap: () {
                 widget.onPressed(0);
                 setState(() => currentPage = 0);
@@ -71,5 +71,60 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         ),
       ),
     );
+  }
+}
+
+class CustomNotSuperUserBottom extends StatefulWidget {
+  final Function(int value) onPressed;
+  const CustomNotSuperUserBottom({
+    required this.onPressed,
+    super.key,
+  });
+
+  @override
+  State<CustomNotSuperUserBottom> createState() =>
+      _CustomNotSuperUserBottomState();
+}
+
+class _CustomNotSuperUserBottomState extends State<CustomNotSuperUserBottom> {
+  int currentPage = 0;
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(18),
+        topRight: Radius.circular(18),
+      ),
+      child: BottomAppBar(
+        height: 60,
+        color: AppColors.bottomColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            
+            BottomItem(
+              onTap: () {
+                widget.onPressed(0);
+                setState(() => currentPage = 0);
+              },
+              currentPage: currentPage,
+              label: "Output",
+              index: 0,
+            ),
+           
+            BottomItem(
+              onTap: () {
+                widget.onPressed(1);
+                setState(() => currentPage = 1);
+              },
+              currentPage: currentPage,
+              label: "History",
+              index: 1,
+            ),
+          ],
+        ),
+      ),
+    );
+    ;
   }
 }
